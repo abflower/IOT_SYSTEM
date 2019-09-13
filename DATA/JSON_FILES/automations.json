@@ -8,6 +8,14 @@
             "params": {
                 "city": "Palermo,IT"
             }
+        },
+        {
+            "id":"2",
+            "name":"get weather in Bristol",
+            "service": "open_weather",
+            "params": {
+                "city": "Bristol,sUK"
+            }
         }
     ]
 

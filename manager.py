@@ -1,6 +1,7 @@
 import itertools
 import logging
 import time
+from automation import automation
 from handle_json import read_json
 from services import *
 
@@ -8,6 +9,8 @@ from services import *
 logging.basicConfig(filename='manager.log',level=logging.DEBUG,format='%(asctime)s %(levelname)s %(message)s')
 
 data = ''
+automations = []
+
 
 def read_and_check():
     logging.info('Now reading json files.')
@@ -20,6 +23,17 @@ def read_and_check():
         logging.warn('Some error occurred while reading json files.')
 
 
+# def load_automations():
+#     for autom in data['automations']:
+#         # retrieves service
+#         service = data['services'][autom['service']]
+#         # compiles parameters
+#         params = {**service['params'], **autom['params']}
+#         print(params)
+#         automations.append(automation(autom['id'], autom['name'],params))
+#     #print(automations)
+
+
 def execute_automations():
     for automation in data['automations']:
         # retrieves service
@@ -30,6 +44,9 @@ def execute_automations():
         print(globals()[service['function']](**params))
 
 
-
 read_and_check()
-execute_automations()
+#execute_automations()
+load_automations()
+
+#automations.append(automation(1,'tarapia'))
+#print(automations)

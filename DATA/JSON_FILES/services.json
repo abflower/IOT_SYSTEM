@@ -6,9 +6,16 @@
                 "params":{
                     "api_key":"",
                     "api_url":"http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid="
-                }
-            }
+                },
+                "extra_params":[
+                    {
+                        "name":"city",
+                        "type":"string",
+                        "required":true
+                    }
+                
+                ]
 
         }
-
+    }
 }
