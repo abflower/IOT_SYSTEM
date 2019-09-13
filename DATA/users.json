@@ -4,7 +4,8 @@
         {
             "id":1,
             "name":"Alex",
-            "pwd":"123"     
+            "pwd":"123",
+            "role":"admin"     
         }
     ]
 }
