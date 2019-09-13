@@ -1,4 +1,5 @@
 import json
+import logging
 import requests
 
 
@@ -6,9 +7,36 @@ def get_weather(api_key, api_url, city):
     api_key = api_key
     api_url = api_url + api_key
     query_url = api_url.format(city)
-    try:
-        uh = requests.get(query_url)
-        data = uh.content
+
+    weather={
+        "name": "",
+        "temperature": "0",
+        "symbol": "",
+        "description": "Some error occurred",
+        "min": "0",
+        "max": "0",
+        "hum": "0",
+        "pressure": "0"}
+
+    weather['name'] = city
+
+    req = requests.get(query_url)
+    
+
+    if '404' in str(req):
+        
+        weather['description'] = "No weather available"
+        
+        logging.warn('No weather available for {}.'.format(city))
+
+    if '401' in str(req):
+        
+        weather['description'] = "Error during request"
+        
+        logging.warn('An error occurred when requesting weather data for {}'.format(city))
+    
+    if '200' in str(req):
+        data = req.content
         parsed = json.loads(data)
         weather = None
         if parsed.get("weather"):
@@ -23,25 +51,5 @@ def get_weather(api_key, api_url, city):
                 "max": str(parsed["main"]["temp_max"]),
                 "hum": str(parsed["main"]["humidity"]),
                 "pressure": str(parsed["main"]["pressure"])}
-        else:
-            weather = {
-                "name": "No weather",
-                "temperature": "0",
-                "symbol": "https://openweathermap.org/img/w/10d.png",
-                "description": "Error",
-                "min": "0",
-                "max": "0",
-                "hum": "0",
-                "pressure": "0"}
-        return weather
-    except:
-        weather = {
-            "name": "Error request",
-            "temperature": "0",
-            "symbol": "https://openweathermap.org/img/w/10d.png",
-            "description": "Error",
-            "min": "0",
-            "max": "0",
-            "hum": "0",
-            "pressure": "0"}
-        return weather
+
+    return weather
