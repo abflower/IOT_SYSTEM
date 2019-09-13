@@ -1,0 +1,10 @@
+{
+    "type":"users",
+    "users":[
+        {
+            "id":1,
+            "name":"Alex",
+            "pwd":"123"     
+        }
+    ]
+}
