@@ -1,0 +1,14 @@
+{
+    "type":"services",
+    "services":{
+            "open_weather":{
+                "function":"get_weather",
+                "params":{
+                    "api_key":"xxxx",
+                    "api_url":"http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid="
+                }
+            }
+
+        }
+
+}

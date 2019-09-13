@@ -1,0 +1,14 @@
+{
+    "type":"automations",
+    "automations":[
+        {
+            "id":"1",
+            "name":"get weather in Palermo",
+            "service": "open_weather",
+            "params": {
+                "city": "Palermo,IT"
+            }
+        }
+    ]
+
+}
