@@ -5,4 +5,4 @@ The idea behind this project is that of a system for the management of IOT and h
 This has three main objectives:
 - configurability
 - privacy
-- resilience of systems if Internet connectivity is patchy/unavailable.
+- resilience of systems if network connectivity is patchy/unavailable.
