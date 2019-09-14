@@ -17,18 +17,23 @@ class automation():
     # properties, become compulsory at the moment of the creation
     # of an instance of the class. 
     # Also these args CAN be passed as labelled ones. 
+
+    # If a dictionary is passed as kwargs, this is the syntax to use when calling
+    # the function func(..., **dictionary_name)
             
-    def __init__(self,aut_id,name, **kwargs):
+    def __init__(self, aut_id, name, service, params, **kwargs):
         self.aut_id = aut_id
         self.name = name
+        self.service = service
+        self.params = params
         self.__dict__.update(kwargs)
 
     def print_all_attrs(self):
         for k in self.__dict__:
             print('%s = %s'%(k, self.__dict__[k]))
 
-dictionary = {'musta':'wow', 'yougurt':'dairy'}
-auto3 = automation(1, 'papaya')
-auto3.print_all_attrs()
+# dictionary = {'say':'wow', 'yogurt':'dairy'}
+# auto3 = automation(1, 'myname', 'tulup', 'params', **dictionary)
+# auto3.print_all_attrs()
 
 #print(dictionary.items())
