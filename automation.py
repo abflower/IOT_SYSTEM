@@ -21,12 +21,18 @@ class automation():
     # If a dictionary is passed as kwargs, this is the syntax to use when calling
     # the function func(..., **dictionary_name)
             
-    def __init__(self, aut_id, name, service, params, **kwargs):
-        self.aut_id = aut_id
-        self.name = name
-        self.service = service
-        self.params = params
+    # def __init__(self, aut_id, name, service, params, condition_type, conditions, **kwargs):
+    #     self.aut_id = aut_id
+    #     self.name = name
+    #     self.service = service
+    #     self.params = params
+    #     self.condition_type = condition_type
+    #     self.conditions = conditions
+    #     self.__dict__.update(kwargs)
+
+    def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
+
 
     def print_all_attrs(self):
         for k in self.__dict__:
