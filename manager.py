@@ -15,23 +15,23 @@ automations = []
 def read_and_check():
     logging.info('Now reading json files.')
     # reads json file and loads them 
-    readind_data = read_json()
+    reading_data = read_json()
     global data
-    data = readind_data[0]
+    data = reading_data[0]
     # checks if some error has occurred while loading
-    if readind_data[1] > 0:
+    if reading_data[1] > 0:
         logging.warn('Some error occurred while reading json files.')
-
 
 def load_automations():
     for autom in data['automations']:
         # retrieves service
         service = data['services'][autom['service']]
-        # compiles parameters
-        params = {**service['params'], **autom['params']}
-        print(params)
-        automations.append(automation(autom['id'], autom['name'], service['function'], params))
-
+        # creates automation object
+        this_automation = automation(**autom)
+        # merges automation and service parameters
+        this_automation.params = {**this_automation.params, **service['params']}
+        # adds automation to list
+        automations.append(this_automation)
 
 def execute_automations():
     for automation in data['automations']:
@@ -48,6 +48,7 @@ read_and_check()
 load_automations()
 for aut in automations:
     aut.print_all_attrs()
+    print()
 
 #automations.append(automation(1,'tarapia'))
 #print(automations)
