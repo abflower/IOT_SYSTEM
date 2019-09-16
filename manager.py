@@ -4,6 +4,7 @@ import time
 from automation import automation
 from handle_json import read_json
 from services import *
+from conditions import *
 
 # set loging
 logging.basicConfig(filename='manager.log',level=logging.DEBUG,format='%(asctime)s %(levelname)s %(message)s')
@@ -35,20 +36,16 @@ def load_automations():
 
 def execute_automations():
     for automation in data['automations']:
-        # retrieves service
-        service = data['services'][automation['service']]
-        # compiles parameters
-        params = {**service['params'], **automation['params']}
-        #print(params)
-        print(globals()[service['function']](**params))
-
+        # checks if conditions are satisfied
+        if (globals()[automation['condition_type']](**automation['conditions'])):
+            # if so it will execute needed service
+            # ...
+            print('yep')
 
 read_and_check()
-#execute_automations()
 load_automations()
-for aut in automations:
-    aut.print_all_attrs()
-    print()
+execute_automations()
+
 
 #automations.append(automation(1,'tarapia'))
 #print(automations)
