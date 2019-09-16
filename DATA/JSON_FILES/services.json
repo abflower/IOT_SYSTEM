@@ -16,6 +16,10 @@
                 
                 ]
 
+        },
+        "test_service":{
+            "function":"test_function",
+            "params":{}
         }
     }
 }

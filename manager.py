@@ -6,7 +6,7 @@ from handle_json import read_json
 from services import *
 from conditions import *
 
-# set loging
+# set logging
 logging.basicConfig(filename='manager.log',level=logging.DEBUG,format='%(asctime)s %(levelname)s %(message)s')
 
 data = ''
@@ -21,31 +21,38 @@ def read_and_check():
     data = reading_data[0]
     # checks if some error has occurred while loading
     if reading_data[1] > 0:
-        logging.warn('Some error occurred while reading json files.')
+        logging.warn('Error while reading json files.')
 
 def load_automations():
     for autom in data['automations']:
-        # retrieves service
-        service = data['services'][autom['service']]
-        # creates automation object
-        this_automation = automation(**autom)
-        # merges automation and service parameters
-        this_automation.params = {**this_automation.params, **service['params']}
-        # adds automation to list
-        automations.append(this_automation)
+        try:
+            # retrieves service
+            service = data['services'][autom['service']]
+            # creates automation object
+            this_automation = automation(**autom)
+            # adds name of function for service
+            this_automation.function = data['services'][autom['service']]['function']
+            # merges automation and service parameters
+            this_automation.params = {**this_automation.params, **service['params']}
+            # adds automation to list
+            automations.append(this_automation)
+        except:
+            logging.warn('Error while loading automation: {}.'.format(autom['name']))
 
 def execute_automations():
-    for automation in data['automations']:
+    for automation in automations:
         # checks if conditions are satisfied
-        if (globals()[automation['condition_type']](**automation['conditions'])):
-            # if so it will execute needed service
-            # ...
-            print('yep')
-
+        try:
+            if (globals()[automation.condition_type](**automation.conditions)):
+                # if so it will execute functions for specific service
+                try:
+                    print(globals()[automation.function](**automation.params))
+                except:
+                    logging.warn('Error when attemping execution of automation: {}.'.format(automation.name))
+        except:
+            logging.warn('Erroe while checking conditions for automation: {}.'.format(automation.name))
+        
 read_and_check()
 load_automations()
 execute_automations()
 
-
-#automations.append(automation(1,'tarapia'))
-#print(automations)

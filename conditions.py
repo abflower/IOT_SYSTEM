@@ -5,7 +5,7 @@
 from datetime import datetime
 
 # this fuc
-def time_day_only(days, time_on, time_off):
+def time_day_only(days='days', time_on='time_on', time_off='time_off'):
     
     # defines current time
     now = datetime.now()

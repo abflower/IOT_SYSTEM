@@ -58,3 +58,6 @@ def get_weather(api_key, api_url, city):
                 "pressure": str(parsed["main"]["pressure"])}
 
     return weather
+
+def test_function():
+    return 'La la la, test is working :)'

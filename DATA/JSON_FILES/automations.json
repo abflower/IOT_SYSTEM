@@ -29,6 +29,20 @@
                 "time_off": "23:45"
             }
 
+        },
+        {
+            "id":"3",
+            "name":"test automation",
+            "service": "test_service",
+            "params": {
+            },
+            "condition_type": "time_day_only",
+            "conditions": {
+                "days": [0, 1, 2, 3, 4, 5, 6],
+                "time_on": "00:00",
+                "time_off": "23:59"
+            }
+
         }
     ]
 
