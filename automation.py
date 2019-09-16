@@ -31,6 +31,7 @@ class automation():
     #     self.__dict__.update(kwargs)
 
     def __init__(self, **kwargs):
+        self.status = 0 # is a status like this a good way to monitor execution??
         self.__dict__.update(kwargs)
 
 
