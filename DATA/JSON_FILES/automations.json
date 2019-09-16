@@ -7,6 +7,12 @@
             "service": "open_weather",
             "params": {
                 "city": "Palermo,IT"
+            },
+            "condition_type": "time_only",
+            "conditions": {
+                "days": "[0, 1, 2, 3, 4, 5, 6]",
+                "time_on": "19:00:00",
+                "time_off": "23:45:00"
             }
         },
         {
@@ -14,8 +20,15 @@
             "name":"get weather in Bristol",
             "service": "open_weather",
             "params": {
-                "city": "Bristol,sUK"
+                "city": "Bristol,UK"
+            },
+            "condition_type": "time_only",
+            "conditions": {
+                "days": "[0, 1, 2, 3, 4, 5, 6]",
+                "time_on": "19:00:00",
+                "time_off": "23:45:00"
             }
+
         }
     ]
 
