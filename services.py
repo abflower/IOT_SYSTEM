@@ -1,3 +1,8 @@
+# This file contains the functions for the different services
+# these function are called by the manage, which also passes 
+# the needed arguments.
+
+
 import json
 import logging
 import requests
