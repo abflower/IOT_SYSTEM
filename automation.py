@@ -39,6 +39,9 @@ class automation():
         for k in self.__dict__:
             print('%s = %s'%(k, self.__dict__[k]))
 
+    def return_all_attrs(self):
+        return self.__dict__
+
 # dictionary = {'say':'wow', 'yogurt':'dairy'}
 # auto3 = automation(1, 'myname', 'tulup', 'params', **dictionary)
 # auto3.print_all_attrs()

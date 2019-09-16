@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Automation "{{info.name}}"</title>
+</head>
+<body>
+    <p>Automation name: {{info.name}}</br>
+    type: {{info.service}}</br></p>
+    <p>Parameters:</p>
+    <ul>
+        {% if service_fields %}
+      {% for item in service_fields %}
+        <li>{{item.name}}: {{item.value}}</li>
+      {% endfor %}
+      
+    {% else %}
+      <li>none</li>
+    {% endif %}
+    </ul>
+    <p>Condition type: {{info.condition_type}}</p>
+    <p>Conditions:</p>
+    <ul>
+      {% if conditions_list %}
+        {% for condition in conditions_list %}
+        <li>{{condition.name}}: {{condition.value}}</li>
+        {% endfor %}
+      {% else %}
+        <li>none</li>
+      {% endif %}
+    </ul>
+    <button onclick="goBack()">Back</button>
+    <button onclick="">Modify automation</button>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+</p>
+</body>
+</html>
