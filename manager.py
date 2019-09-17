@@ -55,9 +55,13 @@ def execute_automations():
     for automation in automations:
         # checks if conditions are satisfied
         try:
-            if (globals()[automation.condition_type](**automation.conditions)):
+            check = globals()[automation.condition_type](**automation.conditions)
                 # if so it will execute functions for specific service
+            if check > 0:
                 try:
+                    check_dic = {'check':check}
+                    automation.params = {**automation.params, **check_dic}
+
                     print(globals()[automation.function](**automation.params))
                 except:
                     logging.warn('Error when attemping execution of automation: {}.'.format(automation.name))

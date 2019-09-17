@@ -2,9 +2,13 @@
 # if condition specified in automations.json for a
 # given automation are satisfied.
 
+# Functions like time_day_only return a binary result (0/1)
+# while other functions (like temperature_check) return a range (e.g. 0,1,2)
+# of codes, specific to the service they are used with.
+
 from datetime import datetime
 
-# this fuc
+
 def time_day_only(days='days', time_on='time_on', time_off='time_off'):
     
     # defines current time
@@ -43,11 +47,15 @@ def time_day_only(days='days', time_on='time_on', time_off='time_off'):
                 return 1  
     return 0
 
-# print(time_day_only([0], '20:30', '11:50'))
-# print(time_day_only([6], '20:30', '11:50'))
-# print(time_day_only([1], '20:30', '20:30'))
-# print(time_day_only([1], '20:25', '11:50'))
-# print(time_day_only([2], '09:25', '11:50'))
-# print(time_day_only([0,2], '09:25', '11:50'))
-# print(time_day_only([1], '00:00', '00:01'))
-# print(time_day_only([1], '23:59', '00:01'))
+def temperature_check(days='days', time_on='time_on', time_off='time_off', min_temp='min_temp', max_temp='max_temp', temp='temp'):
+    # code 1 is ON, code 2 is OFF
+
+    if time_day_only(days, time_on, time_off):
+        if min_temp <= temp < max_temp:
+            return 1
+        else:
+            return 2
+    else:
+        return 2
+
+#print(temperature_check([1], "00:00", "23:59", 15, 35, 20))

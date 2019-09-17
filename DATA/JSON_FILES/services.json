@@ -4,7 +4,7 @@
             "open_weather":{
                 "function":"get_weather",
                 "params":{
-                    "api_key":"",
+                    "api_key":"ec4d49005a9bc48be23f2ce0d2503228",
                     "api_url":"http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid="
                 },
                 "extra_params":[
@@ -21,6 +21,12 @@
             "function":"test_function",
             "params":{},
             "extra_params":[]
+        },
+        "control_stove":{    
+            "function":"switch_stove",
+            "params":{},
+            "extra_params":[]
+
         }
     }
 }

@@ -8,10 +8,11 @@ import logging
 import requests
 
 
-def get_weather(api_key, api_url, city):
+def get_weather(api_key, api_url, city, check):
     api_key = api_key
     api_url = api_url + api_key
     query_url = api_url.format(city)
+   
 
     weather={
         "name": "",
@@ -58,5 +59,11 @@ def get_weather(api_key, api_url, city):
                 "pressure": str(parsed["main"]["pressure"])}
     return weather
 
-def test_function():
+def test_function(check):
     return 'La la la, test is working :)'
+
+def switch_stove(check):
+    if check == 2:
+        return 'Stove switched ON'
+    elif check == 1:
+        return 'Stove switched OFF'
