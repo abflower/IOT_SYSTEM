@@ -63,7 +63,7 @@ def test_function(check):
     return 'La la la, test is working :)'
 
 def switch_stove(check):
-    if check == 2:
+    if check == 1:
         return 'Stove switched ON'
-    elif check == 1:
+    elif check == 2:
         return 'Stove switched OFF'
