@@ -56,7 +56,6 @@ def get_weather(api_key, api_url, city):
                 "max": str(parsed["main"]["temp_max"]),
                 "hum": str(parsed["main"]["humidity"]),
                 "pressure": str(parsed["main"]["pressure"])}
-
     return weather
 
 def test_function():

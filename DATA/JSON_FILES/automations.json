@@ -10,7 +10,7 @@
             },
             "condition_type": "time_day_only",
             "conditions": {
-                "days": [6],
+                "days": [6, 1, 2],
                 "time_on": "19:00",
                 "time_off": "12:45"
             }

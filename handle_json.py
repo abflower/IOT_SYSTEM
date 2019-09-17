@@ -20,7 +20,7 @@ def read_json():
         # assigns content to data under key corresponding to type
         try:
             data[content['type']] = content[content['type']]
-            logging.info('Json file -->{}<-- loaded.'.format([content['type']][0]))
+            #logging.info('Json file -->{}<-- loaded.'.format([content['type']][0]))
         except: 
             checks += 1
             logging.warn('Json file {} is corrupted or uncorrectly loaded.'.format(filename))
