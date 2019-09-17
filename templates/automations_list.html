@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Automations list</title>
+</head>
+<body>
+    <p>List of automations</p>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+        </tr>
+        {% for automation in automations_list %}
+        <tr>
+            <td>
+                <a href="/autom_page?id={{automation.id}}">{{automation.name}}</a>
+            </td>
+            <td>{{automation.status}}</td>
+        </tr>
+        {% endfor %}
+    </table></br>
+    <button onclick="goBack()">Back</button>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+</body>
+</html>

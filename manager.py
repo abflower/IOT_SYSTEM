@@ -70,12 +70,15 @@ def index():
 
 @app.route('/autom_list')
 def autom_list():
-    text = '<p>List of automations</p><ul>'
+    automations_list = []
     for automation in automations:
-        text += '<li><a href="/autom_page?id={}">{}</a></li>'.format(automation.id, automation.name)
-    text += '</ul><a href="/">Home</a>'
-    return text
-    # return 'booo'
+        field = {}
+        field['id'] = automation.id
+        field['name'] = automation.name
+        field['status'] = automation.status
+        automations_list.append(field)
+    response = make_response(render_template("automations_list.html", automations_list=automations_list))
+    return response
 
 @app.route('/autom_page')
 def autom_page():
@@ -97,7 +100,7 @@ def autom_page():
                 field['value'] = automation.conditions[key]
                 conditions_list.append(field)
 
-            response = make_response(render_template("single_service.html", info=info, service_fields=service_fields, conditions_list=conditions_list))
+            response = make_response(render_template("single_automation.html", info=info, service_fields=service_fields, conditions_list=conditions_list))
     return response
 
 
