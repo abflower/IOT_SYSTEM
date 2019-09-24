@@ -1,4 +1,3 @@
-import flask
 import itertools
 import logging
 import threading
@@ -116,58 +115,20 @@ def automations_loop(delay):
 config_thread = myThread(1, "config_thread", read_load_config, 30)
 automation_thread = myThread(2, "automation_thread", automations_loop, 10)
 
-config_thread.start()
-automation_thread.start()
-time.sleep(200)
-exit_flag_config_thread = 1
-exit_flag_automation_thread = 1
+
+def start():
+    config_thread.start()
+    automation_thread.start()
+    time.sleep(200)
+    exit_flag_config_thread = 1
+    exit_flag_automation_thread = 1
+
 # read_and_check()
 # load_automations()
 # execute_automations()
 
-###### FLASK ######
-# app = Flask(__name__)
+# time.sleep(200)
+# exit_flag_config_thread = 1
+# exit_flag_automation_thread = 1
 
-# @app.route('/')
-# def index():
-#     return '''HOME</br>
-#     <a href="/autom_list">List of automations</a>'''
-
-# @app.route('/autom_list')
-# def autom_list():
-#     automations_list = []
-#     for automation in automations:
-#         field = {}
-#         field['id'] = automation.id
-#         field['name'] = automation.name
-#         field['status'] = automation.status
-#         automations_list.append(field)
-#     response = make_response(render_template("automations_list.html", automations_list=automations_list))
-#     return response
-
-# @app.route('/autom_page')
-# def autom_page():
-#     id = request.args.get('id')
-#     response=''
-#     for automation in automations:
-#         if automation.id == id:
-#             info = automation.return_all_attrs()
-#             service_fields = []
-#             for param in automation.extra_params:
-#                 field = {}
-#                 field['name'] = param['name']
-#                 field['value'] = automation.params[param['name']]
-#                 service_fields.append(field)
-#             conditions_list = []
-#             for key in automation.conditions.keys():
-#                 field = {}
-#                 field['name'] = key
-#                 field['value'] = automation.conditions[key]
-#                 conditions_list.append(field)
-
-#             response = make_response(render_template("single_automation.html", info=info, service_fields=service_fields, conditions_list=conditions_list))
-#     return response
-
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
+start()

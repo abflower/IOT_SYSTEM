@@ -53,9 +53,6 @@ def temperature_check(days='days', time_on='time_on', time_off='time_off', min_t
     if time_day_only(days, time_on, time_off):
         if min_temp <= temp < max_temp:
             return 1
-        else:
-            return 2
     else:
         return 2
 
-#print(temperature_check([1], "00:00", "23:59", 15, 35, 20))

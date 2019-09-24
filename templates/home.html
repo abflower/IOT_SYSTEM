@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>HOME</title>
+</head>
+<body>
+    <h1>Home</h1>
+    <p>
+        <a href="/autom_list">List of automations</a>
+    </p>
+    <div>
+        
+        <a href="/reading_off"><button id='stop_reading' onclick="stopReading()">Stop automations</button></a>
+        <a href="/reading_restart"><button id='restart_reading' onclick="restartReading()">Restart automations</button></a>
+        
+    </div>
+
+<script>
+function stopReading() {
+    $("#stop_reading").click(function() {
+        $.get('/reading_off')
+        }
+    )
+}
+function restartReading() {
+    $("#restart_reading").click(function() {
+        $.get('/reading_restart')
+        }
+    )
+}
+</script>
+</p>
+</body>
+</html>
