@@ -11,22 +11,22 @@
     </p>
     <div>
         <h3>Automations control</h3>
-        <a href="/reading_off"><button id='stop_reading' onclick="stopReading()">Stop automations</button></a>
+        <a href="/automations_off"><button id='stop_automations' onclick="stopautomations()">Stop automations</button></a>
     </br></br>
-        <a href="/reading_restart"><button id='restart_reading' onclick="restartReading()">Restart automations</button></a>
+        <a href="/automations_restart"><button id='restart_automations' onclick="restartautomations()">Restart automations</button></a>
         
     </div>
 
 <script>
-function stopReading() {
-    $("#stop_reading").click(function() {
-        $.get('/reading_off')
+function stopautomations() {
+    $("#stop_automations").click(function() {
+        $.get('/automations_off')
         }
     )
 }
-function restartReading() {
-    $("#restart_reading").click(function() {
-        $.get('/reading_restart')
+function restartautomations() {
+    $("#restart_automations").click(function() {
+        $.get('/automations_restart')
         }
     )
 }

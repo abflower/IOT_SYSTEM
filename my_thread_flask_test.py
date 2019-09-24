@@ -31,22 +31,22 @@ class myThread (threading.Thread):
         self._stopevent.set(  )
 
 
-config_thread = myThread(1, "config_thread", print_msg, 3)
-config_thread.start()
+automation_thread = myThread(1, "automation_thread", print_msg, 3)
+automation_thread.start()
 
 def create_app():
     app = Flask(__name__)
 
     def start_thread():
-        global config_thread
-        config_thread.start()
+        global automation_thread
+        automation_thread.start()
 
     def kill():
-        config_thread.kill()
+        automation_thread.kill()
 
     def recreate():
-        global config_thread
-        config_thread = myThread(1, "config_thread", print_msg, 2)
+        global automation_thread
+        automation_thread = myThread(1, "automation_thread", print_msg, 2)
 
     def restart():
         recreate()
@@ -58,14 +58,14 @@ def create_app():
         response = make_response(render_template("home.html"))
         return response
 
-    @app.route('/reading_off')
-    def reading_off():
+    @app.route('/automations_off')
+    def automations_off():
         print('click')
         kill()
         return redirect('/')
     
-    @app.route('/reading_restart')
-    def reading_restart():
+    @app.route('/automations_restart')
+    def automations_restart():
         print('click')
         restart()
         return redirect('/')

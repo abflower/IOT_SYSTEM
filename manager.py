@@ -4,10 +4,10 @@ import threading
 import time
 
 from automation import automation
-from flask import Flask, make_response, render_template, request
+from conditions import *
+from flask import Flask, make_response, redirect, render_template, request
 from handle_json import read_json
 from services import *
-from conditions import *
 
 # set logging
 logging.basicConfig(filename='manager.log',level=logging.DEBUG,format='%(asctime)s %(levelname)s %(message)s')
@@ -66,69 +66,94 @@ def execute_automations():
                     logging.warn('Error when attemping execution of automation: {}.'.format(automation.name))
         except:
             logging.warn('Erroe while checking conditions for automation: {}.'.format(automation.name))
-        
 
-### Defines thread class and threads ###
 
-exit_flag_config_thread = 0
-exit_flag_automation_thread = 0
+def print_msg(self, delay):
+    while not self._stopevent.isSet(  ):
+        print('Hello')
+        time.sleep(delay)
+
+def read_load_config(self, delay):
+    while not self._stopevent.isSet():
+        print('read')
+        if read_and_check():
+            #global exit_flag_config_thread
+            break
+        else:
+            load_automations()
+            time.sleep(delay)
+
+def automations_loop(self, delay):
+    while not self._stopevent.isSet( ):
+        print('execute')
+        execute_automations()
+        time.sleep(delay)
+
 
 class myThread (threading.Thread):
-   def __init__(self, threadID, name, function, delay):
+    def __init__(self, threadID, name, function, delay):
         threading.Thread.__init__(self)
         self.threadID = threadID
         self.name = name
         self.function = function
         self.delay = delay
-   def run(self):
-        logging.info('Starting thread: ' + self.name)
-        #globals()[self.function](*self.delay)    
-        self.function(self.delay)   
-        logging.info('Exiting thread: ' + self.name)
 
-def read_load_config(delay):
-    while True:
-        global exit_flag_config_thread
-        if exit_flag_config_thread == 0:
-            print('read')
-            if read_and_check():
-                #global exit_flag_config_thread
-                exit_flag_config_thread = 1
-                global exit_flag_automation_thread
-                exit_flag_automation_thread = 1
-                break
-            else:
-                load_automations()
-                time.sleep(delay)
-        else:
-            break
+        self._stopevent = threading.Event(  )
+        
+    def run(self):
+        print('Starting thread: ' + self.name)
+        self.function(self, self.delay)   
+        print('Exiting thread: ' + self.name)
 
-def automations_loop(delay):
-    while True:
-        if exit_flag_automation_thread == 0:
-            print('execute')
-            execute_automations()
-            time.sleep(delay)
-        else:
-            break
+    def kill(self):
+        self._stopevent.set(  )
+
+
+# Creates threads and starts them
 
 config_thread = myThread(1, "config_thread", read_load_config, 30)
-automation_thread = myThread(2, "automation_thread", automations_loop, 10)
+automation_thread = myThread(2, "automation_thread", automations_loop, 3)
+config_thread.start()
+automation_thread.start()
+
+def create_app():
+    app = Flask(__name__)
+
+    def start_thread():
+        global automation_thread
+        automation_thread.start()
+
+    def kill():
+        automation_thread.kill()
+
+    def recreate():
+        global automation_thread
+        automation_thread = myThread(2, "automation_thread", automations_loop, 2)
+
+    def restart():
+        recreate()
+        start_thread()
 
 
-def start():
-    config_thread.start()
-    automation_thread.start()
-    time.sleep(200)
-    exit_flag_config_thread = 1
-    exit_flag_automation_thread = 1
+    @app.route('/')
+    def index():
+        response = make_response(render_template("home.html"))
+        return response
 
-# read_and_check()
-# load_automations()
-# execute_automations()
+    @app.route('/automations_off')
+    def automations_off():
+        print('click stop')
+        kill()
+        return redirect('/')
+    
+    @app.route('/automations_restart')
+    def automations_restart():
+        print('click restart')
+        restart()
+        return redirect('/')
+ 
 
-# time.sleep(200)
-# exit_flag_config_thread = 1
-# exit_flag_automation_thread = 1
+    return app
 
-start()
+app = create_app()   
+app.run()

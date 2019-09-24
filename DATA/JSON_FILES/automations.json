@@ -52,7 +52,7 @@
             },
             "condition_type": "temperature_check",
             "conditions": {
-                "days": [0, 1, 2, 3, 4, 5, 6],
+                "days": [],
                 "time_on": "00:00",
                 "time_off": "23:59",
                 "min_temp": 12,
