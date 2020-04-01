@@ -4,8 +4,10 @@ import threading
 import time
 
 from automation import automation
+#from automation_form import AutomationForm
+from automation_form import create_automation_form
 from conditions import *
-from flask import Flask, make_response, redirect, render_template, request
+from flask import flash, Flask, make_response, redirect, render_template, request
 from handle_json import read_json
 from services import *
 
@@ -111,13 +113,14 @@ class myThread (threading.Thread):
 
 # Creates threads and starts them
 
-config_thread = myThread(1, "config_thread", read_load_config, 30)
+config_thread = myThread(1, "config_thread", read_load_config, 60)
 automation_thread = myThread(2, "automation_thread", automations_loop, 3)
 config_thread.start()
 automation_thread.start()
 
 def create_app():
     app = Flask(__name__)
+    app.secret_key = 'papaya'
 
     def start_thread():
         global automation_thread
@@ -137,14 +140,20 @@ def create_app():
 
     @app.route('/')
     def index():
-        response = make_response(render_template("home.html"))
+        global automation_thread
+        thread = 1
+        if not automation_thread.is_alive():
+            thread = 0  
+        response = make_response(render_template("home.html", thread=thread))
         return response
 
     @app.route('/automations_off')
     def automations_off():
         print('click stop')
         kill()
+        flash('You stopped the automations this can take a little time')
         return redirect('/')
+       
     
     @app.route('/automations_restart')
     def automations_restart():
@@ -161,6 +170,7 @@ def create_app():
             field['name'] = automation.name
             field['status'] = automation.status
             automations_list.append(field)
+        #print(automations_list)
         response = make_response(render_template("automations_list.html", automations_list=automations_list))
         return response
 
@@ -184,8 +194,25 @@ def create_app():
                     field['value'] = automation.conditions[key]
                     conditions_list.append(field)
 
+                print(info)
+                print(service_fields)
+                print(conditions_list)
                 response = make_response(render_template("single_automation.html", info=info, service_fields=service_fields, conditions_list=conditions_list))
         return response    
+
+    @app.route('/autom_change')
+    def autom_change():
+        id = request.args.get('id')
+        response = None
+        for automation in automations:
+            if automation.id == id:
+                info = automation.return_all_attrs()
+                #form = AutomationForm()
+                form = create_automation_form(info)
+
+        response = make_response(render_template('automation_change.html', info=info, form=form))
+        return response
+
  
 
     return app

@@ -1,0 +1,10 @@
+IDEAS FOR AN AUTOMATIC REPORT	
+
+- Temperature and humidity in the house
+- Temperature and humidity outside
+- Atmospheric pressure and trend (last 12 hours)
+- Forecast for day after (depending on the time we automate the report)
+- Energy consumption of previous 24 hours
+- Comparison with average consumption of energy
+
+

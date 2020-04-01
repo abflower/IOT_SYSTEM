@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Modify automation</title>
+</head>
+<body>
+    <p><h3>Modify automation: {{info.name}}</h3></p>
+    <p>
+        Automation id: {{info.id}}</br>
+        Type: {{info.service}}
+    </p>
+    <h4>Modifiable fields</h4>
+    <table>
+    {% for field in form %}
+    <tr>
+        <td>{{ field.label }}</td>
+        <td>{{ field }}</td>
+    </tr>
+  {% endfor %}
+</table>
+  {{ info }}
+  <div>
+    <a href="/"><button>Home</button></a>
+    <button onclick="goBack()">Back</button>
+  </div>
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+</body>
+</html>

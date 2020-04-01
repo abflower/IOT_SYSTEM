@@ -6,17 +6,41 @@
 </head>
 <body>
     <h1>Home</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     <p>
         <a href="/autom_list">List of automations</a>
     </p>
     <div>
         <h3>Automations control</h3>
+        <!--
+        {% if thread %}
         <a href="/automations_off"><button id='stop_automations' onclick="stopautomations()">Stop automations</button></a>
     </br></br>
+        <a href="/automations_restart"><button id='restart_automations' disabled onclick="restartautomations()">Restart automations</button></a>
+        {% else %}
+        <a href="/automations_off"><button id='stop_automations' disabled onclick="stopautomations()">Stop automations</button></a>
+    </br></br>
         <a href="/automations_restart"><button id='restart_automations' onclick="restartautomations()">Restart automations</button></a>
-        
+        {% endif %}
+-->
+    {% if thread %}
+        <a href="/automations_off"><button>Stop automations</button></a>
+    </br></br>
+        <a href="/automations_restart"><button disabled>Restart automations</button></a>
+        {% else %}
+        <a href="/automations_off"><button disabled>Stop automations</button></a>
+    </br></br>
+        <a href="/automations_restart"><button>Restart automations</button></a>
+        {% endif %}
     </div>
-
+<!--
 <script>
 function stopautomations() {
     $("#stop_automations").click(function() {
@@ -31,6 +55,7 @@ function restartautomations() {
     )
 }
 </script>
+-->
 </p>
 </body>
 </html>
